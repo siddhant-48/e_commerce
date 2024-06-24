@@ -10,6 +10,7 @@ import Admin from "./components/user/Admin";
 import Cart from "./components/Payment/Cart";
 import AdminProtected from "./components/AdminProtected";
 import MainAdmin from "./components/user/MainAdmin";
+import ListProducts from "./components/Admin/ListProducts";
 
 function App() {
   const tokenExists = !!localStorage.getItem("token");
@@ -80,6 +81,7 @@ function App() {
             />
           </>
         )}
+        <Route path="/admin/products" element={<ListProducts />} />
       </Routes>
     </Router>
   );

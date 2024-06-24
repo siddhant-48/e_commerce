@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@coreui/coreui": "^5.0.2",
+    "@coreui/react": "^5.1.0",
     "@reduxjs/toolkit": "^2.2.5",
     "i": "^0.3.7",
     "npm": "^10.8.1",

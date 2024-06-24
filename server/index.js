@@ -16,7 +16,7 @@ const JWT_SECRET = "tnjdcJNsdjn";
 app.use(
   cors({
     origin: "*",
-    methods: ["GET", "POST", "PUT"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
@@ -159,6 +159,39 @@ app.get("/products", async (req, res) => {
     res.status(200).json(products);
   } catch (error) {
     console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//number of products
+app.get("/products/count", async (req, res) => {
+  try {
+    const count = await Product.countDocuments();
+    res.status(200).json({ totalProducts: count });
+  } catch (error) {
+    console.error("Error fetching product count:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+//delete product
+app.delete("/products/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Convert id to number if necessary
+    const productId = parseInt(id);
+
+    // Find and delete product by id
+    const deletedProduct = await Product.findOneAndDelete({ id: productId });
+
+    if (!deletedProduct) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json({ message: "Product deleted successfully", deletedProduct });
+  } catch (error) {
+    console.error("Error deleting product:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
