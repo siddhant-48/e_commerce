@@ -25,11 +25,8 @@ const productSchema = new Schema(
       required: true,
     },
     price: {
-      type: String,
+      type: Number,
       required: true,
-      default: function () {
-        return "₹" + this.get("price");
-      },
     },
     category: {
       type: String,

@@ -40,7 +40,7 @@ function ProductCard({ product }) {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-2xl font-bold text-gray-900 dark:text-white">
-              {product.price}
+              ₹{product.price}
             </span>
             <button
               onClick={() => handleAdd(product)}

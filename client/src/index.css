@@ -16,6 +16,7 @@
 .red {
   color: red;
 }
+
 /* Ensure high specificity */
 input-focus-red {
   color: red !important;
@@ -36,32 +37,46 @@ input-focus-red {
 }
 
 .card-top {
-  padding: 20px 0; /* Optional: Add padding around the container */
+  padding: 20px 0;
+  /* Optional: Add padding around the container */
 }
 
 .item {
-  flex: 1; /* Each item takes equal width */
-  display: flex; /* Ensure content inside each item aligns vertically */
-  flex-direction: column; /* Align content vertically */
-  text-align: center; /* Center text */
+  flex: 1;
+  /* Each item takes equal width */
+  display: flex;
+  /* Ensure content inside each item aligns vertically */
+  flex-direction: column;
+  /* Align content vertically */
+  text-align: center;
+  /* Center text */
 }
 
 .item a {
-  display: flex; /* Ensure link takes full height */
-  flex-direction: column; /* Align content vertically */
-  text-align: center; /* Center text */
-  text-decoration: none; /* Remove default link underline */
+  display: flex;
+  /* Ensure link takes full height */
+  flex-direction: column;
+  /* Align content vertically */
+  text-align: center;
+  /* Center text */
+  text-decoration: none;
+  /* Remove default link underline */
 }
 
 .item a h6 {
-  margin-top: 10px; /* Optional: Add spacing between image and text */
+  margin-top: 10px;
+  /* Optional: Add spacing between image and text */
 }
 
 .item-image {
-  width: 100%; /* Full width */
-  height: 200px; /* Set height to 200px */
-  object-fit: cover; /* Ensure images maintain aspect ratio */
-  border-radius: 8px; /* Optional: Add rounded corners */
+  width: 100%;
+  /* Full width */
+  height: 200px;
+  /* Set height to 200px */
+  object-fit: cover;
+  /* Ensure images maintain aspect ratio */
+  border-radius: 8px;
+  /* Optional: Add rounded corners */
 }
 
 /* cart */
@@ -154,6 +169,7 @@ input-focus-red {
   border: 1px solid #ff3f6c;
   color: #ff3f6c;
 }
+
 .pills-base-textStyle {
   padding: 8px 16px;
 }
@@ -169,6 +185,7 @@ input-focus-red {
   border: 1px solid #d4d5d9;
   color: #282c3f;
 }
+
 .cartFiller-base-cartFillerHeading {
   font-size: 16px;
   font-weight: 700;
@@ -235,6 +252,25 @@ input-focus-red {
   justify-content: space-between;
 }
 
-.card-inner > .card_icon {
+.card-inner>.card_icon {
   font-size: 25px;
+}
+
+.image-test {
+  background-image: url('../public/main.jpg');
+  background-size: cover;
+  background-position: contain;
+  padding: 18px;
+  /* z-index: 1; */
+}
+
+.image-sigin {
+  background-image: url('../public/main.jpg');
+  background-size: cover;
+  background-position: contain;
+  padding-bottom: 90px;
+}
+
+.progress {
+  margin: 0 auto;
 }

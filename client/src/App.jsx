@@ -6,11 +6,15 @@ import Signup from "./components/user/Signup";
 import Signin from "./components/user/Signin";
 import Services from "./components/products/Services";
 import Protected from "./components/Protected";
-import Admin from "./components/user/Admin";
+import Admin from "./components/Admin/Admin";
 import Cart from "./components/Payment/Cart";
 import AdminProtected from "./components/AdminProtected";
-import MainAdmin from "./components/user/MainAdmin";
+import MainAdmin from "./components/Admin/MainAdmin";
 import ListProducts from "./components/Admin/ListProducts";
+import { ToastContainer } from "react-toastify";
+import ListUsers from "./components/Admin/ListUsers";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 function App() {
   const tokenExists = !!localStorage.getItem("token");
@@ -45,45 +49,54 @@ function App() {
     }
   }, [tokenExists]);
 
+  //stripe
+  const stripePromise = loadStripe("your-publishable-key-here");
+
   return (
-    <Router>
-      <Nav isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
-        {isAdmin ? (
-          <Route
-            path="/admin"
-            element={
-              <AdminProtected isAdmin={isAdmin}>
-                <MainAdmin />
-              </AdminProtected>
-            }
-          />
-        ) : (
-          <>
+    <>
+      <ToastContainer />
+      <Router>
+        <Nav isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          {isAdmin ? (
             <Route
-              path="/services"
+              path="/admin"
               element={
-                <Protected isLoggedIn={isLoggedIn}>
-                  <Services />
-                </Protected>
+                <AdminProtected isAdmin={isAdmin}>
+                  <MainAdmin />
+                </AdminProtected>
               }
             />
-            <Route
-              path="/cart"
-              element={
-                <Protected isLoggedIn={isLoggedIn}>
-                  <Cart />
-                </Protected>
-              }
-            />
-          </>
-        )}
-        <Route path="/admin/products" element={<ListProducts />} />
-      </Routes>
-    </Router>
+          ) : (
+            <>
+              <Route
+                path="/services"
+                element={
+                  <Protected isLoggedIn={isLoggedIn}>
+                    <Services />
+                  </Protected>
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  <Protected isLoggedIn={isLoggedIn}>
+                    <Elements stripe={stripePromise}>
+                      <Cart />
+                    </Elements>
+                  </Protected>
+                }
+              />
+            </>
+          )}
+          <Route path="/admin/products" element={<ListProducts />} />
+          <Route path="/admin/users" element={<ListUsers />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

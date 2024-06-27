@@ -1,5 +1,6 @@
 //form functions
 //sign up
+
 export const signup = async (user) => {
   try {
     const response = await fetch("http://localhost:5000/signup", {
@@ -76,3 +77,4 @@ export async function signin(userData) {
     alert("An error occurred during sign in.");
   }
 }
+

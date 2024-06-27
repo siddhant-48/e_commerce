@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { signup } from "../../auth";
 import "../../index.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Signup() {
   const [success, setSuccess] = useState(false);
@@ -50,6 +52,7 @@ function Signup() {
             password: passwordRef.current.value,
             cnPassword: cnPasswordRef.current.value,
           });
+          toast.success("User created Successfully!")
           console.log("Register successful");
           setMsg({ msgType: "", message: "" });
           setSuccess(true);
@@ -68,7 +71,7 @@ function Signup() {
 
   return (
     <>
-      <section className="bg-gray-50 dark:bg-gray-900 pt-10">
+      <section className="bg-gray-50 dark:bg-gray-900 pt-5 image-test">
         <div className="test">
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 md:px-4 md:py-6">
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">

@@ -129,7 +129,7 @@ const upload = multer({ storage: storage });
 app.post("/add-product", upload.single("image"), async (req, res) => {
   try {
     const { name, description, rating, price, category } = req.body;
-    const prefixRupees = "₹" + price;
+    // const prefixRupees = "₹" + price;
     const image = `/uploads/${req.file.filename}`; //relative path
 
     const newProduct = new Product({
@@ -137,8 +137,8 @@ app.post("/add-product", upload.single("image"), async (req, res) => {
       name,
       description,
       rating,
-      // price,
-      price: prefixRupees,
+      price,
+      // price: prefixRupees,
       category,
     });
 
@@ -189,9 +189,71 @@ app.delete("/products/:id", async (req, res) => {
       return res.status(404).json({ error: "Product not found" });
     }
 
-    res.status(200).json({ message: "Product deleted successfully", deletedProduct });
+    res
+      .status(200)
+      .json({ message: "Product deleted successfully", deletedProduct });
   } catch (error) {
     console.error("Error deleting product:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+//fetch all users
+app.get("/users", async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while fetching users" });
+  }
+});
+
+app.get("/total/users", async (req, res) => {
+  try {
+    const users = await User.countDocuments();
+    res.status(200).json({ totalUsers: users });
+  } catch (error) {
+    console.log("Error fetching Users");
+    res.status(500).json({ error: "Error fetching the users" });
+  }
+});
+
+//delete user
+app.delete("/users/:id", async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while deleting user" });
+  }
+});
+
+//filters
+app.get('/api/products/category/:category', async (req, res) => {
+  let { category } = req.params;
+
+  try {
+    // Case insensitivity: convert category to lowercase
+    category = category.toLowerCase();
+    
+    let products;
+    if (category === 'all') {
+      // Fetch all products if 'all' is specified
+      products = await Product.find({}).exec();
+    } else {
+      // Fetch products matching the category (case insensitive)
+      products = await Product.find({ category: { $regex: new RegExp(category, 'i') } }).exec();
+    }
+    
+    res.json(products);
+  } catch (err) {
+    console.error('Error fetching products:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+

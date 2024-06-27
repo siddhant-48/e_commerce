@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Admin from "./Admin/Admin";
 
 function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [
-    "/public/hammer.jpg",
-    "/public/bucket.jpg",
-    "/public/crayons.jpg",
-    "/public/shoes.jpg",
-    "/public/skin.jpg",
+    "/hammer.jpg",
+    "/bucket.jpg",
+    "/crayons.jpg",
+    "/shoes.jpg",
+    "/skin.jpg",
   ];
 
   const handlePrev = () => {
@@ -90,6 +91,8 @@ function Home() {
           <span className="sr-only">Next</span>
         </span>
       </button>
+      <Admin />
+
     </div>
   );
 }
