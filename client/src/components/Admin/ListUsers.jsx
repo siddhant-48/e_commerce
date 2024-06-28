@@ -56,7 +56,7 @@ function ListUsers() {
 
   return (
     <>
-      <div className="user-list flex flex-col">
+      <div className="user-list flex flex-col m-5">
         {users.map((user) => (
           <div
             key={user._id} // Use _id as the key
@@ -66,7 +66,7 @@ function ListUsers() {
             <p>Password: *********</p>
             <button
               onClick={() => openModal(user._id)}
-              className="mt-2 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md"
+              className="mt-2 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md float-right"
             >
               Delete
             </button>

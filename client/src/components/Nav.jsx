@@ -274,7 +274,7 @@ function Nav() {
       alert("No User!");
     } else {
       window.localStorage.clear();
-      alert("Logout Success!");
+      // alert("Logout Success!");
       toast.success("User Logged out Successfully!")
       window.location.href = "/";
     }

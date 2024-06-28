@@ -23,10 +23,13 @@ function CheckoutForm({ totalAmount }) {
       console.log("[error]", error);
     } else {
       console.log("[PaymentMethod]", paymentMethod);
-      // Here you would typically send the payment method ID to your server
-      // to complete the payment process.
+      //payment ideas
     }
   };
+
+  const handlePay = () =>{
+    console.log("hi");
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -35,6 +38,7 @@ function CheckoutForm({ totalAmount }) {
         type="submit"
         disabled={!stripe}
         className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-700 mt-6"
+        onClick={handlePay}
       >
         Pay ₹{totalAmount}
       </button>

@@ -60,7 +60,7 @@ export async function signin(userData) {
     const data = await response.json();
     console.log(data, "UserRegister");
     if (data.status === "ok") {
-      alert("Signed in Successfully");
+      // alert("Signed in Successfully");
       window.localStorage.setItem("token", data.data);
       if (data.isAdmin) {
         console.log("Redirecting to /admin");
