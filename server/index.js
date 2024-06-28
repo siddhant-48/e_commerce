@@ -13,6 +13,9 @@ const path = require("path");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "tnjdcJNsdjn";
 
+require('dotenv').config();
+const mongoUri = process.env.MONGODB_URI;
+
 app.use(
   cors({
     origin: "*",
@@ -28,7 +31,7 @@ app.get("/", (req, res) => {
   console.log("hello");
 });
 
-mongoose.connect("mongodb://localhost:27017/market", {
+mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -234,26 +237,27 @@ app.delete("/users/:id", async (req, res) => {
 });
 
 //filters
-app.get('/api/products/category/:category', async (req, res) => {
+app.get("/api/products/category/:category", async (req, res) => {
   let { category } = req.params;
 
   try {
     // Case insensitivity: convert category to lowercase
     category = category.toLowerCase();
-    
+
     let products;
-    if (category === 'all') {
+    if (category === "all") {
       // Fetch all products if 'all' is specified
       products = await Product.find({}).exec();
     } else {
       // Fetch products matching the category (case insensitive)
-      products = await Product.find({ category: { $regex: new RegExp(category, 'i') } }).exec();
+      products = await Product.find({
+        category: { $regex: new RegExp(category, "i") },
+      }).exec();
     }
-    
+
     res.json(products);
   } catch (err) {
-    console.error('Error fetching products:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error fetching products:", err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
